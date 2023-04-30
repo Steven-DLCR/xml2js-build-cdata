@@ -1,24 +1,13 @@
-node-xml2js
-===========
-
-Ever had the urge to parse XML? And wanted to access the data in some sane,
-easy way? Don't want to compile a C parser, for whatever reason? Then xml2js is
-what you're looking for!
-
 Description
 ===========
 
-Simple XML to JavaScript object converter. It supports bi-directional conversion.
-Uses [sax-js](https://github.com/isaacs/sax-js/) and
-[xmlbuilder-js](https://github.com/oozcitak/xmlbuilder-js/).
-
-Note: If you're looking for a full DOM parser, you probably want
-[JSDom](https://github.com/tmpvar/jsdom).
+Made a modification to the [xml2js](https://www.npmjs.com/package/xml2js) package to support CDATA on demand.
+The modified version of [xml2js](https://www.npmjs.com/package/xml2js/v/0.5.0) is 0.5.0
 
 Installation
 ============
 
-Simplest way to install `xml2js` is to use [npm](http://npmjs.org), just `npm
+Simplest way to install `xml2js-build-cdata` is to use [npm](http://npmjs.org), just `npm
 install xml2js-build-cdata` which will download xml2js-build-cdata and all dependencies.
 
 xml2js is also available via [Bower](http://bower.io/), just `bower install
@@ -28,12 +17,18 @@ Usage CDATA
 ===========
 
 ```javascript
+const xml2js = require('xml2js-build-cdata');
+
 const companyCityName = 'company';
 const obj = {
   'cityName': {
       _: `CDATA${companyCityName}`
 };
-var xml = builder.buildObject(obj);
+
+const builder = new xml2js.Builder({
+  cdata: true
+});
+const xml = builder.buildObject(obj);
 console.log(xml);
 
 '<cityName><![CDATA[company]]></cityName>'
